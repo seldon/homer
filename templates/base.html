@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <div id="logo">
+<!--
+{{ STATIC_URL }} will works when some real views are implemented (RequestContext is
+the problem)
+-->
+        <img src="{{ STATIC_URL }}images/logobelenchia.gif" alt="Logo Belenchia" />
+    </div>
+    <div id="header">
+        {% block header %}
+            {% block contact %}{% endblock %}
+            {% block section-name %}{% endblock %}
+            {% block menu %}{% endblock %}
+            {% block header-image %}{% endblock %}
+        {% endblock header %}
+    </div>
+
+{% block content %}
+{% endblock content %}
+
+{% block footer %}      
+{% endblock footer %}
+</body>
+
+</html>
