@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Belenchia - immobiliare{% endblock %}
+
+{% block content %}
+    {% block left-column %}
+        <h2>Form di ricerca</h2>   
+    {% endblock left-column %}
+
+    {% block right-column %}
+        <ul>
+        {% for typo in promo_typ %}
+            <li>{{ typo }}</li>
+        {% endfor %}
+        </ul>
+    {% endblock right-column %}
+{% endblock content %}

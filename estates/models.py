@@ -1,6 +1,6 @@
 from django.db import models
 
-class Customer(models.Model):
+class Owner(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField()
@@ -15,23 +15,10 @@ class Customer(models.Model):
 
 
 
-class Category(models.Model):
-    category = models.CharField(max_length=30)
-
-    class Meta:
-        ordering = ['category']
-        verbose_name_plural = 'categories'
-
-    def __unicode__(self):
-        return self.category
-
-
-
 class Typology(models.Model):
     """
-    WRITE-ME
-    (Must decide if Typology class has a one-to-many or many-to-many relationship
-    with Estate class)
+    Typology is the second level of the taxonomy.
+    Multiple tipologies belongs to a single Category.
     """
     typology = models.CharField(max_length=30)
     first_page = models.BooleanField(default=False)
@@ -45,23 +32,45 @@ class Typology(models.Model):
 
 
 
+class Category(models.Model):
+    """
+    Category is the first level of the taxonomy.
+    Every category has multiple typologies related.
+    """
+    category = models.CharField(max_length=30)
+    typology = models.ManyToManyField(Typology)
+
+    class Meta:
+        ordering = ['category']
+        verbose_name_plural = 'categories'
+
+    def __unicode__(self):
+        return self.category
+
+
+
 class Estate(models.Model):
     """
-    The common model for all the estate data. The different categories (that in
-    the site have different sections) are distinguished in the "category" field.  
+    The common model for all the estate data.
+    Every estate has a single typology.  
     """
-    name = models.CharField(max_length=30)
+    SELLING_TYPE = (
+        ('SALE', 'vendita'),
+        ('RENT', 'affitto'),
+    )
+
+    #name = models.CharField(max_length=30)
+    address = models.CharField(max_length=30)
     surface = models.PositiveIntegerField(help_text="metri quadri")
     rooms = models.PositiveIntegerField()
     bathrooms = models.PositiveIntegerField()
     park_slots = models.PositiveIntegerField()
     price = models.PositiveIntegerField(help_text="euro")
     first_page = models.BooleanField(default=False)
-    customer = models.ForeignKey(Customer)
-    category = models.ForeignKey(Category)
-    # must decide if Typology is a "ManyToMany" or "ForeignKey" field
-    #typology = models.ManyToManyField(Typology)
+    selling_type = models.CharField(max_length=4, choices=SELLING_TYPE)
+    owner = models.ForeignKey(Owner)
+    typology = models.ForeignKey(Typology)
 
     def __unicode__(self):
-        return self.name
+        return '%s - %s' % (self.owner, self.address)
 
