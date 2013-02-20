@@ -14,9 +14,10 @@ admin.site.register(Owner, OwnerAdmin)
 
 
 class EstateAdmin(admin.ModelAdmin):
-    list_display = ('typology', 'surface', 'price', 'owner', 'first_page')
+    list_display = ('address', 'typology', 'owner', 'surface', 'price', 'first_page')
 
 admin.site.register(Estate,EstateAdmin)
+
 
 class CategoryAdmin(admin.ModelAdmin):
     filter_horizontal = ('typology',)

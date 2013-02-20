@@ -1,6 +1,11 @@
 from django.db import models
 
 class Owner(models.Model):
+    """
+    This class collect data of the owner of the estate(s). 
+    Every owner could have more than one estate.
+    It is a very simple anagraphic archive.
+    """
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField()
@@ -59,7 +64,7 @@ class Estate(models.Model):
         ('RENT', 'affitto'),
     )
 
-    #name = models.CharField(max_length=30)
+    #name = models.CharField(max_length=30) # Useless ???
     address = models.CharField(max_length=30)
     surface = models.PositiveIntegerField(help_text="metri quadri")
     rooms = models.PositiveIntegerField()

@@ -4,14 +4,29 @@
 
 {% block content %}
     {% block left-column %}
-        <h2>Form di ricerca</h2>   
+        <div style="float:left;border:1px solid black;">
+            <h2>Form di ricerca</h2>
+        </div>
     {% endblock left-column %}
 
     {% block right-column %}
-        <ul>
-        {% for typo in promo_typ %}
-            <li>{{ typo }}</li>
-        {% endfor %}
-        </ul>
+        <div style="float:left;">
+
+            <ul>
+            {% for typology, estates in promoted.items %}
+                <li>
+                {{ typology }}
+                <ul>
+                {% for e in estates %}    
+                    <li>
+                        {{ e }}
+                    </li>
+                {% endfor %}
+                </ul>
+                </li>   
+            {% endfor %}
+            </ul>
+
+        </div>
     {% endblock right-column %}
 {% endblock content %}
