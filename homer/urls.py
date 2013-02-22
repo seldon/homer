@@ -23,6 +23,10 @@ urlpatterns += patterns('estates.views',
     url(r'^estate/', 'home', name='home'),
 )
 
+urlpatterns += patterns('news.views',
+    url(r'^administrator/', include('news.urls')),
+)
+
 
 #For media files
 if settings.DEBUG:

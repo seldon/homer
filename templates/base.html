@@ -21,7 +21,15 @@
 	#header-contact {vertical-align:bottom;}
 	#header-social {v-align:bottom;}
 	#header-image{ margin-bottom:15pt; }
-	.social-img{width:32px;height:32px;}
+	.social-img{width:26px;height:26px;}
+
+	.section-home-img{
+		width:80%;
+	}
+	
+	.administration-section{
+		border-bottom:6px #FFC000 solid;
+	}
 
 		
 	</style>
@@ -39,29 +47,29 @@
 	    <div id="logo" class='span3'>
 	        <img src="{{ STATIC_URL }}images/logobelenchia.gif" alt="Logo Belenchia" />
 	    </div>
-	    <div id="header-top" class='span7'>
+	    <div id="header-top" class='span6'>
 	    	<div id='header-info'>
-		    	<div id='header-contact' class='span9'>
+		    	<div id='header-contact' class='span10'>
 		            {% block contact %}
 		    	        Via Marchetti, 96 – 60019 Senigallia (AN) 
 			            tel. 071.659025 - fax 071.7925848
 		            {% endblock %}
 		        </div>
-		        <div id='header-social' class='span3'>
+		        <div id='header-social' class='span2'>
 		            {% block social %}
 				        <img src="{{ MEDIA_URL }}images/facebook.png" alt="Logo Belenchia" class='social-img' />
 	    			    <img src="{{ MEDIA_URL }}images/twitter.png" alt="Logo Belenchia" class='social-img' />
 		            {% endblock %}
 		        </div>
-			    <div id='header-menu' class='span12'> prova prova
-			            {% block menu %}{% endblock %}
-			    </div>
+			    
 			</div>
 	    </div>
-	    <div id='section-name' class='span2'>
+	    <div id='section-name' class='span3'>
 		            {% block section-name %}{% endblock %}
 		</div>
-
+		<div id='header-menu' class='span12'> prova prova
+			{% block menu %}{% endblock %}
+		</div>
 	</div>
 	<div id='header-image' class='container pagination-centered'>
 	        {% block header-image %}{% endblock %}
