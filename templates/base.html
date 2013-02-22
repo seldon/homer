@@ -1,31 +1,82 @@
+<!DOCTYPE html>
 <html>
 
 <head>
     <title>{% block title %}{% endblock %}</title>
+    
+    <meta name="author" content="InformaEtica" />
+
+	<meta name="viewport" content="width=device-width; initial-scale=1.5" />
+
+	<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+	
+	<link rel='stylesheet' type='text/css' href='{{ MEDIA_URL }}css/base.css' media='all' />
+	<link href="{{ MEDIA_URL }}css/bootstrap.css" rel="stylesheet">	
+	<link href="{{ MEDIA_URL }}css/bootstrap-responsive.css" rel="stylesheet">	
+	<!-- style to put in base.css file -->	
+	<style>
+	#header{ margin-bottom:5pt; border-bottom:1px solid black; position:relative; }
+	#header-contact {vertical-align:bottom;}
+	#header-social {v-align:bottom;}
+	#header-image{ margin-bottom:15pt; }
+	.social-img{width:32px;height:32px;}
+
+		
+	</style>
+	
+	{% block extra_css %}{% endblock %}
+	
+	<script src='{{ MEDIA_URL }}js/jquery-1.9.1.min.js'></script>
+	
+	{% block extra_js %}{% endblock %}
+    
 </head>
 
 <body>
-    <div id="logo">
-<!--
-{{ STATIC_URL }} will works when some real views are implemented (RequestContext is
-the problem)
--->
-        <img src="{{ STATIC_URL }}images/logobelenchia.gif" alt="Logo Belenchia" />
-    </div>
-    <div id="header">
-        {% block header %}
-            {% block contact %}{% endblock %}
-            {% block section-name %}{% endblock %}
-            {% block menu %}{% endblock %}
-            {% block header-image %}{% endblock %}
-        {% endblock header %}
-    </div>
+	<div id='header' class='row-fluid'>
+	    <div id="logo" class='span3'>
+	        <img src="{{ STATIC_URL }}images/logobelenchia.gif" alt="Logo Belenchia" />
+	    </div>
+	    <div id="header-top" class='span7'>
+	    	<div id='header-info'>
+		    	<div id='header-contact' class='span9'>
+		            {% block contact %}
+		    	        Via Marchetti, 96 – 60019 Senigallia (AN) 
+			            tel. 071.659025 - fax 071.7925848
+		            {% endblock %}
+		        </div>
+		        <div id='header-social' class='span3'>
+		            {% block social %}
+				        <img src="{{ MEDIA_URL }}images/facebook.png" alt="Logo Belenchia" class='social-img' />
+	    			    <img src="{{ MEDIA_URL }}images/twitter.png" alt="Logo Belenchia" class='social-img' />
+		            {% endblock %}
+		        </div>
+			    <div id='header-menu' class='span12'> prova prova
+			            {% block menu %}{% endblock %}
+			    </div>
+			</div>
+	    </div>
+	    <div id='section-name' class='span2'>
+		            {% block section-name %}{% endblock %}
+		</div>
 
-{% block content %}
-{% endblock content %}
+	</div>
+	<div id='header-image' class='container pagination-centered'>
+	        {% block header-image %}{% endblock %}
+	</div>
 
-{% block footer %}      
-{% endblock footer %}
+
+<div id='content' class='container'>
+	{% block content %}
+	{% endblock content %}
+</div>
+
+<div id='footer'>
+	{% block footer %}      
+	{% endblock footer %}
+</div>
 </body>
 
 </html>

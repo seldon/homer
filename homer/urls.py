@@ -1,4 +1,6 @@
 from django.conf.urls import patterns, include, url
+from django.conf import settings
+
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -20,3 +22,12 @@ urlpatterns = patterns('',
 urlpatterns += patterns('estates.views',
     url(r'^estate/', 'home', name='home'),
 )
+
+
+#For media files
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+   )
