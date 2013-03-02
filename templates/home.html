@@ -2,12 +2,45 @@
 
 {% block title %}Belenchia immobiliare{% endblock %}
 
+{% block extra_css %}
+<style>
+	#estate-home{
+		border-top:1.3em solid #62E200;
+	}
+	
+	#admin-home{
+		border-top:1.3em solid #FFC000;		
+	}
+	
+	#summer-home{
+		border-top:1.3em solid #E60042;		
+	}	
+
+</style>
+{% endblock %}
+
 {% block header-image %}
-    <img src="{{ STATIC_URL }}images/home-header.gif" alt="Home Header-Image" />
+    <img src="{{ STATIC_URL }}images/panorama-homepage.png" alt="Home Header-Image" />
 {% endblock header-image %}
 
 {% block content %}
-    <div><a href="/estate">Link alla sezione Immobiliare</a></div>
-    <div>Link alla sezione Amministrazione Condomini</div>
-    <div>Link alla sezione Affitti Estivi</div>
+<div class='row-fluid'>
+	<div id='estate-home' class='span4'>
+		<a href="/estate"><h4>{{ estates_flatpage.title }}</h4>
+		<div class='pagination-centered' >
+	    <img src="{{ MEDIA_URL }}images/handshake.jpg" alt="IMMOBILIARE" class='section-home-img' />
+		</div><p>{{ estates_flatpage.content }}</p></a>
+	</div>
+
+	<div id='admin-home' class='span4'>
+		<span>{{ administrator_flatpage.title }}</span>
+		<p>{{ administrator_flatpage.content }}</p>
+	</div>
+
+	<div id='summer-home' class='span4'>
+		<span>{{ summer_rent_flatpage.title }}</span>
+		<p>{{ summer_rent_flatpage.content }}</p>
+	</div>
+</div>
+
 {% endblock content %}

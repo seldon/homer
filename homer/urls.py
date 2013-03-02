@@ -1,4 +1,6 @@
 from django.conf.urls import patterns, include, url
+from django.conf import settings
+
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -22,3 +24,16 @@ urlpatterns += patterns('estates.views',
     url(r'^ajax/$', 'ajax_magic', name='ajax_magic'),
     url(r'^estate/search-result/$', 'search', name='search'),
 )
+
+urlpatterns += patterns('news.views',
+    url(r'^administrator/', include('news.urls')),
+)
+
+
+#For media files
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+   )

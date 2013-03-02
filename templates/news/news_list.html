@@ -1,0 +1,48 @@
+<!-- index page for Administration Section -->
+{% extends "base-administration.html" %}
+
+{% block extra_css %}
+<style>
+	.administration-block{
+		background:#fff7df;
+		border:1px solid #FFC000;
+	}
+	
+	.administration-block h3{
+		color: #FFC000;
+	}
+
+	
+	.section-home-img{
+		width:80%;
+	}
+
+</style>
+{% endblock %}
+
+{% block header-image %}
+    <img src="{{ MEDIA_URL }}images/panorama-administration.jpg" alt="Home Header-Image" />
+{% endblock %}
+
+
+{% block content %}
+	<div class=row-fluid>
+		<div class='administration-block span4 well'>
+			
+		</div>
+		
+		<div class='administration-block span4 well'>
+			
+		</div>		
+		
+		<div class='administration-block span4 well'>
+			<h3 class='pagination-centered'> NEWS </h3>
+			{% for new in news_list.all %}
+				<div>
+				<a href='{{ request.get_full_path }}{{ new.slug }}/'> {{ new.title }} </a>
+				{{ new.body }} 
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
