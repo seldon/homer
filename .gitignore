@@ -3,5 +3,4 @@
 *.log
 *.pot
 *.pyc
-settings.py
 settings_local.py
