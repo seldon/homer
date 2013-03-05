@@ -1,5 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
+from django.views.generic import DetailView
+
+from estates.models import Estate
 
 
 # Uncomment the next two lines to enable the admin:
@@ -23,6 +26,12 @@ urlpatterns += patterns('estates.views',
     url(r'^estate/$', 'home', name='home'), 
     url(r'^ajax/$', 'ajax_magic', name='ajax_magic'),
     url(r'^estate/search-result/$', 'search', name='search'),
+)
+
+# TODO: improve this view (maybe not using a generic view?) and choose a better URL
+# the URL MUST (?) be the same in the get_absolute_url() method of Estate model 
+urlpatterns += patterns('',
+    url(r'^estate/detail/(?P<pk>\d+)/$', DetailView.as_view(model=Estate, context_object_name='estate')),
 )
 
 urlpatterns += patterns('news.views',
