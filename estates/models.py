@@ -80,13 +80,13 @@ class Estate(models.Model):
         return '%s - %s' % (self.owner, self.address)
 
 
-class EstateImage(models.Model):
-    estate = models.ForeignKey(Estate, related_name='images')
-    position = models.PositiveSmallIntegerField("Position")
-    original = models.ImageField(upload_to='images')
-    thumbnail = ImageSpecField([ResizeToFill(160, 90)], image_field='original', format='JPEG', options={ 'quality':90 })
-    def __unicode__(self):
-        return  SafeUnicode('<img src="'+str(self.thumbnail.url)+'" />')
-    class Meta:
-        ordering = ['position']
+#class EstateImage(models.Model):
+#    estate = models.ForeignKey(Estate, related_name='images')
+ #   position = models.PositiveSmallIntegerField("Position")
+  #  original = models.ImageField(upload_to='images')
+#    thumbnail = ImageSpecField([ResizeToFill(160, 90)], image_field='original', format='JPEG', options={ 'quality':90 })
+ #   def __unicode__(self):
+ #       return  SafeUnicode('<img src="'+str(self.thumbnail.url)+'" />')
+ #   class Meta:
+ #       ordering = ['position']
         

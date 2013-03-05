@@ -24,6 +24,10 @@
 {% endblock header-image %}
 
 {% block content %}
+{% load simplyblock_tags %}
+{% block_content home_section make %}
+
+
 <div class='row-fluid'>
 	<div id='estate-home' class='span4'>
 		<a href="/estate"><h4>{{ estates_flatpage.title }}</h4>

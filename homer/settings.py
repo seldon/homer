@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'estates',
     'news',
+    'simplyblock',
 )
 
 # A sample logging configuration. The only tangible logging
