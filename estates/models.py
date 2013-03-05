@@ -6,11 +6,11 @@ class Owner(models.Model):
     Every owner could have more than one estate.
     It is a very simple anagraphic archive.
     """
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
-    address = models.CharField(max_length=30)
+    address = models.CharField(max_length=200)
 
     def __unicode__(self):
         return '%s %s' % (self.last_name, self.first_name)
@@ -25,7 +25,7 @@ class Typology(models.Model):
     Typology is the second level of the taxonomy.
     Multiple tipologies belongs to a single Category.
     """
-    typology = models.CharField(max_length=30)
+    typology = models.CharField(max_length=200)
     first_page = models.BooleanField(default=False)
 
     class Meta:
@@ -42,7 +42,7 @@ class Category(models.Model):
     Category is the first level of the taxonomy.
     Every category has multiple typologies related.
     """
-    category = models.CharField(max_length=30)
+    category = models.CharField(max_length=200)
     typology = models.ManyToManyField(Typology)
 
     class Meta:
@@ -65,7 +65,7 @@ class Estate(models.Model):
     )
 
     #name = models.CharField(max_length=30) # Useless ???
-    address = models.CharField(max_length=30)
+    address = models.CharField(max_length=200)
     surface = models.PositiveIntegerField(help_text="metri quadri")
     rooms = models.PositiveIntegerField()
     bathrooms = models.PositiveIntegerField()
@@ -79,3 +79,14 @@ class Estate(models.Model):
     def __unicode__(self):
         return '%s - %s' % (self.owner, self.address)
 
+
+class EstateImage(models.Model):
+    estate = models.ForeignKey(Estate, related_name='images')
+    position = models.PositiveSmallIntegerField("Position")
+    original = models.ImageField(upload_to='images')
+    thumbnail = ImageSpecField([ResizeToFill(160, 90)], image_field='original', format='JPEG', options={ 'quality':90 })
+    def __unicode__(self):
+        return  SafeUnicode('<img src="'+str(self.thumbnail.url)+'" />')
+    class Meta:
+        ordering = ['position']
+        

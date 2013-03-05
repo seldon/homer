@@ -4,3 +4,4 @@
 *.pot
 *.pyc
 settings_local.py
+*.json
