@@ -3,5 +3,7 @@
 *.log
 *.pot
 *.pyc
-settings_local.py
 *.json
+settings_local.py
+.project
+.pydevproject
