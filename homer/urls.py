@@ -20,7 +20,9 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += patterns('estates.views',
-    url(r'^estate/', 'home', name='home'),
+    url(r'^estate/$', 'home', name='home'), 
+    url(r'^ajax/$', 'ajax_magic', name='ajax_magic'),
+    url(r'^estate/search-result/$', 'search', name='search'),
 )
 
 urlpatterns += patterns('news.views',

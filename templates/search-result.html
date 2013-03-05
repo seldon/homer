@@ -15,17 +15,10 @@
         <div style="float:left;">
 
             <ul>
-            {% for typology, estates in promoted.items %}
-                <li>
-                {{ typology }}
-                <ul>
-                {% for e in estates %}    
-                    <li>
-                        {{ e }}
-                    </li>
-                {% endfor %}
-                </ul>
-                </li>   
+            {% for e in estates %}
+                <li>  
+                    {{ e }}
+                </li>
             {% endfor %}
             </ul>
 

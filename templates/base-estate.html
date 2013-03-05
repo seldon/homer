@@ -2,6 +2,45 @@
 
 {% block title %}Belenchia - immobiliare{% endblock %}
 
+{% block extra_js %}
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<script>    // TODO: put this script in a separate .js file in the STATIC directory (?)
+
+$(document).ready(function() {
+    var csrftoken = document.cookie.substring(10);          //
+    //alert(csrftoken);                                     // Very dumb method to pass the CSRF token.
+    $.ajaxSetup({                                           // REPLACE THIS METHOD WITH A GLOBAL SETTING !!!    
+    beforeSend: function(xhr){                              // (Put an effective "ajax_csrf.js" file in the STATIC directory)
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);     //
+    }                                                       //
+    });
+
+    $("#id_category").change(function() {
+        var selected = $("option:selected",this).val();
+        $.post('/ajax/',
+            {'category':selected}                           // AJAX request (via POST method) to change the typologies, triggered when the category is changed
+        ).done(function(returneddata){
+            $("form > ul").empty();                         // remove the old checkbox with the no-more-current typologies
+            var newoptions = "";
+            var arraytypes = returneddata.split("-");            
+            for (var i = 0; i < arraytypes.length; i++){
+                array_single_t = arraytypes[i].split(":");
+                newoptions += "<li><label for=\"id_typology_" + i + "\"><input id=\"id_typology_" + i + "\" type=\"checkbox\" value=\"" + array_single_t[0] + "\" name=\"typology\">" + array_single_t[1] + "</label>";
+            }
+            $("form > ul").append(newoptions);              // create the new checkbox with the current typologies
+        }).fail(function(msg){
+            alert("AJAX request - epic fail: " + msg);      // TODO: improve the error management =)
+        });
+    })
+
+});
+
+</script>
+
+{% endblock extra_js %}
+
 {% block content %}
     {% block left-column %}   
     {% endblock left-column %}
