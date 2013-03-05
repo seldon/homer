@@ -4,6 +4,7 @@
 *.pot
 *.pyc
 *.json
+*~
 settings_local.py
 .project
 .pydevproject
