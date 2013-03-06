@@ -8,12 +8,15 @@ class BlockContentNode(template.Node):
         self.block_name = block_name
         self.action = action
     def render(self,context):
-        block_content = Content.objects.get(block_name = self.block_name)
+        try:
+            block_content = Content.objects.get(block_name = self.block_name)
+        except:
+            return ''
         if self.action == 'make':
-            div = "<div class='%s-wrapper simplyblock' ><div class='%s'><div class='title'>%s</div><div class=content>%s</div></div>" % (block_content.block_name, 
-                                                                                                                                   block_content.block_name,
-                                                                                                                                   block_content.title,
-                                                                                                                                   block_content.body)
+            div = ("<div class='%s-wrapper simplyblock' >"
+                   "<div class='%s'><div class='title'>%s</div>"
+                   "<div class=content>%s</div></div>") % (block_content.block_name, block_content.block_name, 
+                                                           block_content.title, block_content.body)
             return div
         elif self.action == 'get':
             context[self.block_name] = block_content
