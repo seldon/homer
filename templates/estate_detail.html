@@ -1,0 +1,32 @@
+{% extends "base-estate.html" %}
+
+{% block content %}
+    {% block left-column %}
+    {% endblock left-column %}
+
+    {% block right-column %}
+        <div style="float:left;">
+            {{ estate }}
+            <br />            
+            {{ estate.get_selling_type_display|upper }}
+            <br />
+            Tipologia: {{ estate.typology }}
+            <br />
+            Locali: {{ estate.rooms }}
+            <br />
+            Bagni: {{ estate.bathrooms }}
+            <br />
+            Posti auto: {{ estate.park_slots }}
+            <br />
+            Prezzo: {{ estate.price }}
+        </div>
+        <br /><br /><br /><br /><br /><br /><br />
+        <div style="float:left;">
+
+            {% for i in estate.images.all %}
+                {{ i }}
+            {% endfor %}
+
+        </div>
+    {% endblock right-column %}
+{% endblock content %}

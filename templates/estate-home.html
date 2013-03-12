@@ -3,7 +3,7 @@
 {% block content %}
     {% block left-column %}
         <div style="float:left;border:1px solid black;">
-            <form action="/estate/search-result/" method="POST">
+            <form action="/estates/search-result/" method="POST">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="submit" value="Filtra">
@@ -19,9 +19,9 @@
                 <li>
                 {{ typology }}
                 <ul>
-                {% for e in estates %}    
+                {% for e, thumb in estates %}    
                     <li>
-                        {{ e }}
+                        {{ thumb }}<a href="{{ e.get_absolute_url }}">{{ e }}</a>
                     </li>
                 {% endfor %}
                 </ul>

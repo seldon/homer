@@ -1,9 +1,15 @@
 from django.db import models
+from django.utils.safestring import SafeUnicode
+
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
+
+
 
 class Owner(models.Model):
     """
     This class collect data of the owner of the estate(s). 
-    Every owner could have more than one estate.
+    Every Owner can have more than one Estate.
     It is a very simple anagraphic archive.
     """
     first_name = models.CharField(max_length=200)
@@ -12,12 +18,11 @@ class Owner(models.Model):
     phone = models.CharField(max_length=20)
     address = models.CharField(max_length=200)
 
-    def __unicode__(self):
-        return '%s %s' % (self.last_name, self.first_name)
-
     class Meta:
         ordering = ['last_name', 'first_name']
 
+    def __unicode__(self):
+        return '%s %s' % (self.last_name, self.first_name)
 
 
 class Typology(models.Model):
@@ -40,7 +45,7 @@ class Typology(models.Model):
 class Category(models.Model):
     """
     Category is the first level of the taxonomy.
-    Every category has multiple typologies related.
+    Every Category has multiple typologies related.
     """
     category = models.CharField(max_length=200)
     typology = models.ManyToManyField(Typology)
@@ -57,7 +62,7 @@ class Category(models.Model):
 class Estate(models.Model):
     """
     The common model for all the estate data.
-    Every estate has a single typology.  
+    Every Estate has a single Typology.  
     """
     SELLING_TYPE = (
         ('SALE', 'vendita'),
@@ -77,16 +82,29 @@ class Estate(models.Model):
     typology = models.ForeignKey(Typology)
 
     def __unicode__(self):
-        return '%s - %s' % (self.owner, self.address)
+        return '%s - %s' % (self.address, self.owner)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('detail_single_estate', [str(self.id)])
 
 
-#class EstateImage(models.Model):
-#    estate = models.ForeignKey(Estate, related_name='images')
- #   position = models.PositiveSmallIntegerField("Position")
-  #  original = models.ImageField(upload_to='images')
-#    thumbnail = ImageSpecField([ResizeToFill(160, 90)], image_field='original', format='JPEG', options={ 'quality':90 })
- #   def __unicode__(self):
- #       return  SafeUnicode('<img src="'+str(self.thumbnail.url)+'" />')
- #   class Meta:
- #       ordering = ['position']
+
+class EstateImage(models.Model):
+    """
+    Images for the estates.
+    Every Estate can have more than one EstateImage (and should have at least ONE).
+    The first image for every estate (i.e., the image with the smallest 'position' value)
+    is considered the 'thumbnail' for that Estate.
+    """
+    estate = models.ForeignKey(Estate, related_name='images')
+    position = models.PositiveSmallIntegerField()
+    original = models.ImageField(upload_to='images')
+    thumbnail = ImageSpecField([ResizeToFill(160, 90)], image_field='original', format='JPEG', options={'quality':90})
+
+    class Meta:
+        ordering = ['estate', 'position']
+
+    def __unicode__(self):
+        return SafeUnicode('<img src="' + str(self.thumbnail.url) + '" />')
         

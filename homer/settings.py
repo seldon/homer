@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'estates',
     'news',
     'simplyblock',
+    'imagekit',
 )
 
 # A sample logging configuration. The only tangible logging
