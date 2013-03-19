@@ -31,6 +31,14 @@ urlpatterns += patterns('news.views',
 )
 
 
+
+urlpatterns += patterns('',
+    (r'^grappelli/', include('grappelli.urls')),
+)
+
+
+
+
 #For media files
 if settings.DEBUG:
     urlpatterns += patterns('',

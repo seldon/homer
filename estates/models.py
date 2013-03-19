@@ -95,12 +95,15 @@ class EstateImage(models.Model):
     Images for the estates.
     Every Estate can have more than one EstateImage (and should have at least ONE).
     The first image for every estate (i.e., the image with the smallest 'position' value)
-    is considered the 'thumbnail' for that Estate.
+    is considered the 'front image' for that Estate.
     """
     estate = models.ForeignKey(Estate, related_name='images')
     position = models.PositiveSmallIntegerField()
     original = models.ImageField(upload_to='images')
     thumbnail = ImageSpecField([ResizeToFill(160, 90)], image_field='original', format='JPEG', options={'quality':90})
+
+    def admin_thumb(self):
+        return SafeUnicode('<img src="'+str(self.thumbnail.url)+'" />');
 
     class Meta:
         ordering = ['estate', 'position']
